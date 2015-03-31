@@ -16,6 +16,9 @@ class CompaniesTable(tag: Tag) extends Table[Company](tag, "COMPANIES") {
 // Table's companion object
 object Companies extends DAO {
 
-  def insert(company: Company)(implicit session: Session): Int =
+  def insert(company: Company)(implicit s: Session): Int =
     (Companies returning Companies.map(_.id)) += company
+
+  def selectAll(implicit s: Session) =
+    Companies.list
 }

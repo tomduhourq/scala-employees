@@ -1,7 +1,22 @@
-@(message: String)
+@(employees: Seq[Details])(implicit flash: Flash)
 
-@main("Welcome to Play") {
+@main {
 
-    @play20.welcome(message)
-
+@if(employees.nonEmpty) {
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Company</th>
+        <th></th>
+    </tr>
+    @for(employee <- employees) {
+    <tr>
+        <td><a href="@routes.Application.details(employee.id)">@employee.name</a></td>
+        <td>@employee.position</td>
+        <td>@employee.company</td>
+    </tr>
+    }
+</table>
+}
 }

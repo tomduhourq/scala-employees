@@ -17,7 +17,9 @@ class PositionsTable(tag: Tag) extends Table[Position](tag, "POSITIONS") {
 
 object Positions extends DAO {
 
-  def insert(position: Position)(implicit s: Session): Int = {
+  def insert(position: Position)(implicit s: Session): Int =
     (Positions returning Positions.map(_.id)) += position
-  }
+
+  def selectAll(implicit s: Session) =
+    Positions.list
 }

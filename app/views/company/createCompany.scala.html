@@ -1,0 +1,17 @@
+@(companyForm: Form[Company])
+
+@import views.ViewHelpers._
+
+@main {
+    <h1>Add a company</h1>
+    @helper.form(routes.CompanyController.saveCompany) {
+        <fieldset>
+            @helper.inputText(companyForm("name"), '_label -> "Company name")
+        </fieldset>
+    }
+
+    <div class="actions">
+        <input type="submit" value="Create this company" class="btn primary"> or
+        <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+}

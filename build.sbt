@@ -17,3 +17,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "2.1.0",
   "com.typesafe.play" %% "play-slick" % "0.8.1"
 )
+
+
+fork in run := true

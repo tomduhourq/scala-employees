@@ -16,7 +16,7 @@ object Global extends GlobalSettings {
     val startingPositions = createPositions
     val startingEmployees = createEmployees
 
-    Logger.info("Starting data imported correctly")
+    Logger.info("Starting data correctly created")
 
     val db = DB.withSession { implicit session =>
 
@@ -24,6 +24,8 @@ object Global extends GlobalSettings {
       startingCompanies.foreach(Companies.insert)
       startingPositions.foreach(Positions.insert)
       startingEmployees.foreach(Employees.insert)
+
+      Logger.info("Starting data correctly imported to db")
     }
   }
 
