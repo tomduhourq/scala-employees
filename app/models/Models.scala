@@ -6,3 +6,4 @@ case class Employee(id: Int, name: String, positionId: Int)
 
 // Employee general abstraction
 case class Details(id: Int, name: String, position: String, company: String)
+

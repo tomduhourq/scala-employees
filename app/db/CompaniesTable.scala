@@ -1,5 +1,6 @@
 package db
 
+import common.CompanyNotFoundException
 import models.Company
 
 import scala.slick.driver.MySQLDriver.simple._
@@ -21,4 +22,10 @@ object Companies extends DAO {
 
   def selectAll(implicit s: Session) =
     Companies.list
+
+  def findIdByName(name: String)(implicit s: Session) =
+    Companies.filter(_.name === name).list.headOption match {
+      case Some(Company(id, _)) => id
+      case _ => throw new CompanyNotFoundException(s"Company with name: $name was not found")
+    }
 }

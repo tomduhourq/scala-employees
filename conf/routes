@@ -4,6 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index
+POST    /employee                   controllers.Application.insert
+POST    /employee/:id               controllers.Application.update(id: Int)
+GET     /employee/:id               controllers.Application.details(id: Int)
 
 # Add Company
 GET     /companies/new              controllers.CompanyController.createCompany

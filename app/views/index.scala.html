@@ -1,22 +1,23 @@
 @(employees: Seq[Details])(implicit flash: Flash)
 
 @main {
+  @if(employees.nonEmpty) {
 
-@if(employees.nonEmpty) {
-<table class="table table-striped">
-    <tr>
+    <table class="table table-striped">
+      <tr>
         <th>Name</th>
         <th>Position</th>
         <th>Company</th>
         <th></th>
-    </tr>
+      </tr>
+
     @for(employee <- employees) {
-    <tr>
+      <tr>
         <td><a href="@routes.Application.details(employee.id)">@employee.name</a></td>
         <td>@employee.position</td>
         <td>@employee.company</td>
-    </tr>
+      </tr>
     }
-</table>
-}
+    </table>
+  }
 }

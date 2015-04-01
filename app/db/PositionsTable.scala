@@ -1,5 +1,6 @@
 package db
 
+import common.PositionNotFoundException
 import models.Position
 
 import scala.slick.driver.MySQLDriver.simple._
@@ -22,4 +23,12 @@ object Positions extends DAO {
 
   def selectAll(implicit s: Session) =
     Positions.list
+
+  def findIdByName(name: String)(implicit s: Session) =
+    Positions
+      .filter(_.name === name).list.headOption match {
+      case Some(Position(id, _, _)) => id
+      case _ => throw new PositionNotFoundException(s"Company with name: $name was not found")
+    }
+
 }

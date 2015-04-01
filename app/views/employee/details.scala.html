@@ -12,10 +12,7 @@
 
 @helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert()) {
 @helper.inputText(employee("name"), '_label -> "Name")
-<!--TODO: dropDowns-->
-@helper.inputText(employee("position"), '_label -> "Position")
-@helper.inputText(product("description"), '_label -> "Description", 'class -> "input-xxlarge")
-
+<!--TODO: Dropdowns-->
 <div class="form-actions">
     <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Employee } else { Add Employee }
