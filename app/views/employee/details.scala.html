@@ -1,24 +1,25 @@
-@(id: Option[Int], employee: Form[Details])(implicit flash: Flash)
+@(id: Option[Int], employee: Form[Details], companies: Seq[Company], positions: Seq[Position])(implicit flash: Flash)
+
 @import views.ViewHelpers._
 
 @main {
+  @if(employee.hasErrors) {
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Please fix the validation errors.
+    </div>
+  }
 
-@if(employee.hasErrors) {
-<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    Please fix the validation errors.
-</div>
-}
-
-@helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert()) {
-@helper.inputText(employee("name"), '_label -> "Name")
+  @helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert) {
+    @helper.inputText(employee("name"), '_label -> "Name")
+    @helper.select(field = employee("company"), options = companies.map(c => (c.id.toString, c.name)))
+    @helper.select(field = employee("position"), options = positions.map(p => (p.id.toString, p.name)))
 <!--TODO: Dropdowns-->
-<div class="form-actions">
-    <button type="submit" class="btn btn-primary">
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Employee } else { Add Employee }
-    </button>
-    <a href="@routes.Application.index" class="btn">Cancel</a>
-</div>
-}
-
+      </button>
+      <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+  }
 }

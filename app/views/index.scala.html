@@ -16,6 +16,10 @@
         <td><a href="@routes.Application.details(employee.id)">@employee.name</a></td>
         <td>@employee.position</td>
         <td>@employee.company</td>
+        <td>
+          <form method="post" action="@routes.Application.delete(employee.id)">
+            <button class="btn btn-link" type="submit"><i class="icon-trash"></i> Delete </button>
+          </form>
       </tr>
     }
     </table>

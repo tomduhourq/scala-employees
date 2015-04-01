@@ -27,13 +27,16 @@ object Employees extends DAO {
   def selectAll(implicit s: Session) =
     Employees.list
 
+  def find(id: Int)(implicit s: Session) =
+    Employees.filter(_.id === id).list.headOption
+
   def findById(id: Int)(implicit s: Session) =
     selectAllFormedQuery.filter(_._1 === id).list.headOption match {
       case Some(d) => Some(toCaseClass(d))
       case _ => None
     }
 
-  private def selectAllFormedQuery =
+  private lazy val selectAllFormedQuery =
     for {
       emp  <- Employees
       pos  <- Positions if pos.id  === emp.positionId
@@ -57,6 +60,9 @@ object Employees extends DAO {
             db.Positions.findIdByName(details.position)
           )
         )
+
+  def delete(id: Int)(implicit s: Session) =
+    Employees.filter(_.id === id).delete
 
   def detailsList(implicit s: Session) = selectAllFormedQuery.list.map(toCaseClass _)
   private[this] def toCaseClass(details: (Int, String, String, String)) = Details.tupled(details)

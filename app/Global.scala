@@ -18,7 +18,7 @@ object Global extends GlobalSettings {
 
     Logger.info("Starting data correctly created")
 
-    val db = DB.withSession { implicit session =>
+    DB.withSession { implicit session =>
 
       // Create
       startingCompanies.foreach(Companies.insert)
@@ -32,7 +32,8 @@ object Global extends GlobalSettings {
   def createCompanies =
     List(
       Company(1, "Globant"),
-      Company(2, "Apple")
+      Company(2, "Apple"),
+      Company(3, "Google")
     )
 
   def createPositions =
@@ -40,13 +41,16 @@ object Global extends GlobalSettings {
       Position(1, "Scala Dev", 1),
       Position(2, "Big Data Dev", 1),
       Position(3, "Java Dev", 2),
-      Position(4, "iOS Dev", 2)
+      Position(4, "iOS Dev", 2),
+      Position(5, "Data Scientist", 3),
+      Position(6, "Scala Dev", 2)
     )
 
   def createEmployees =
     List(
       Employee(1, "Tomas Duhourq", 1),
       Employee(2, "John Doe", 3),
-      Employee(3, "Mary Doe", 2)
+      Employee(3, "Mary Doe", 2),
+      Employee(4, "Dick Wall", 6)
     )
 }

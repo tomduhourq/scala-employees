@@ -14,7 +14,6 @@ class CompaniesTable(tag: Tag) extends Table[Company](tag, "COMPANIES") {
   def * = (id, name) <> (Company.tupled, Company.unapply)
 }
 
-// Table's companion object
 object Companies extends DAO {
 
   def insert(company: Company)(implicit s: Session): Int =
