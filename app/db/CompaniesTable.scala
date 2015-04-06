@@ -9,7 +9,7 @@ import scala.slick.driver.MySQLDriver.simple._
 class CompaniesTable(tag: Tag) extends Table[Company](tag, "COMPANIES") {
 
   def id = column[Int]("ID", O.AutoInc, O.PrimaryKey)
-  def name = column[String]("NAME")
+  def name = column[String]("NAME", O.NotNull)
 
   def * = (id, name) <> (Company.tupled, Company.unapply)
 }

@@ -20,7 +20,7 @@ class EmployeesTable(tag: Tag) extends Table[Employee](tag, "EMPLOYEES") {
       TableQuery[PositionsTable]
     )(
         _.id,
-        onUpdate=ForeignKeyAction.Restrict,
+        onUpdate=ForeignKeyAction.Cascade,
         onDelete=ForeignKeyAction.Cascade
       )
 }

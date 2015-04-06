@@ -2,10 +2,6 @@
 
 @import views.ViewHelpers._
 
-@extractCompanyName = @{
-  companies.filter(_.name == employee.get.company)(0).name
-}
-
 @extractPositionName = @{
   positions.filter(_.name == employee.get.position)(0).name
 }
@@ -23,7 +19,7 @@
     @helper.select(field = employee("company"),
                    options = tuplify(companies),
                    '_label -> "Company",
-                   '_default -> extractCompanyName)
+                   '_default -> extractCompanyName(companies, employee))
     @helper.select(field = employee("position"),
                    options = tuplify(positions),
                    '_label -> "Position",

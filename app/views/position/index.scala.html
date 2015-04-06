@@ -1,27 +1,30 @@
-@(companies: Seq[Company])
+@(positions: Seq[PosDetails])
 
 @main {
 
-  <form method="get" action="@routes.CompanyController.createCompany">
+  <form method="get" action="@routes.PositionController.createPosition">
     <button type="submit" class="btn btn-default btn-md">
       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
     </button>
   </form>
 
-  @if(companies.nonEmpty) {
+  @if(positions.nonEmpty) {
     <table class="table table-striped">
       <tr>
         <th>Name</th>
+        <th>Company</th>
         <th></th>
       </tr>
 
-    @for(company <- companies) {
+    @for(position <- positions) {
       <tr>
-        <td><a href="@routes.CompanyController.details(company.id)">@company.name</a></td>
+        <td><a href="@routes.PositionController.details(position.id)">@position.name</a></td>
+        <td>@position.company</td>
         <td>
-          <form method="post" action="@routes.CompanyController.delete(company.id)">
+          <form method="post" action="@routes.PositionController.delete(position.id)">
             <button class="btn btn-link" type="submit"><i class="icon-trash"></i> Delete </button>
           </form>
+        </td>
       </tr>
     }
   </table>

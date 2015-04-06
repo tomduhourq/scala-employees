@@ -1,6 +1,8 @@
 package views
 
-import views.html.helper.FieldConstructor
+import models.Company
+import play.api.data.Form
+import views.html.helper.{form, FieldConstructor}
 
 object ViewHelpers {
 
@@ -8,5 +10,18 @@ object ViewHelpers {
 
   def tuplify(seq: Seq[{def id: Int; def name: String}]) = {
     seq.map(i => (i.id.toString, i.name))
+  }
+
+  private def extractSearchName[T <: {def company: String}](form: Form[T]) =
+     form.value match {
+       case Some(_) => form.get.company
+       case _ => ""
+     }
+
+  def extractCompanyName[T <: {def company: String}](companies: Seq[Company], form: Form[T]) = {
+    companies.filter(_.name == extractSearchName(form)).headOption match {
+      case Some(c) => c.name
+      case _ => "-- Select an option --"
+    }
   }
 }
