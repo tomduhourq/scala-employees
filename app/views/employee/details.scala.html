@@ -2,6 +2,14 @@
 
 @import views.ViewHelpers._
 
+@extractCompanyName = @{
+  companies.filter(_.name == employee.get.company)(0).name
+}
+
+@extractPositionName = @{
+  positions.filter(_.name == employee.get.position)(0).name
+}
+
 @main {
   @if(employee.hasErrors) {
     <div class="alert alert-error">
@@ -12,9 +20,14 @@
 
   @helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert) {
     @helper.inputText(employee("name"), '_label -> "Name")
-    @helper.select(field = employee("company"), options = companies.map(c => (c.id.toString, c.name)))
-    @helper.select(field = employee("position"), options = positions.map(p => (p.id.toString, p.name)))
-<!--TODO: Dropdowns-->
+    @helper.select(field = employee("company"),
+                   options = tuplify(companies),
+                   '_label -> "Company",
+                   '_default -> extractCompanyName)
+    @helper.select(field = employee("position"),
+                   options = tuplify(positions),
+                   '_label -> "Position",
+                   '_default -> extractPositionName)
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Employee } else { Add Employee }

@@ -24,6 +24,10 @@ object Positions extends DAO {
   def selectAll(implicit s: Session) =
     Positions.list
 
+  // Group by acts as DISTINCT
+  def unique(implicit s: Session) =
+    selectAll.groupBy(_.name).map(_._2(0)).toSeq
+
   def findIdByName(name: String)(implicit s: Session) =
     Positions
       .filter(_.name === name).list.headOption match {

@@ -36,7 +36,7 @@ object Application extends Controller {
             None,
             formWithErrors,
             Companies.selectAll,
-            Positions.selectAll
+            Positions.unique
           )
         )
       },
@@ -50,12 +50,12 @@ object Application extends Controller {
   def update(id: Int) = DBAction { implicit rs =>
     detailsForm.bindFromRequest.fold(
       errors =>
-        Ok(
+        BadRequest(
           views.html.employee.details(
             Some(id),
             errors,
             Companies.selectAll,
-            Positions.selectAll
+            Positions.unique
           )
         )
           .flashing("errors" -> "Fix the errors!"),
@@ -78,7 +78,7 @@ object Application extends Controller {
           Some(employee.id),
           detailsForm.fill(employee),
           Companies.selectAll,
-          Positions.selectAll
+          Positions.unique
         )
       )
     }.getOrElse {
