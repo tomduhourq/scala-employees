@@ -13,7 +13,16 @@ class PositionsTable(tag: Tag) extends Table[Position](tag, "POSITIONS") {
 
   def * = (id, name, companyId) <> (Position.tupled, Position.unapply)
 
-  def supplier = foreignKey("COM_FK", companyId, TableQuery[CompaniesTable])(_.id)
+  def supplier =
+    foreignKey(
+      "COM_FK",
+      companyId,
+      TableQuery[CompaniesTable]
+    )(
+        _.id,
+        onUpdate=ForeignKeyAction.Restrict,
+        onDelete=ForeignKeyAction.Cascade
+      )
 }
 
 object Positions extends DAO {

@@ -15,7 +15,7 @@ GET     /employee/:id               controllers.Application.details(id: Int)
 # Companies
 GET     /companies                  controllers.CompanyController.list
 GET     /companies/new              controllers.CompanyController.createCompany
-POST    /companies                  controllers.CompanyController.saveCompany
+POST    /companies                  controllers.CompanyController.insert
 POST    /companies/:id              controllers.CompanyController.update(id: Int)
 POST    /companies/:id/delete       controllers.CompanyController.delete(id: Int)
 GET     /companies/:id              controllers.CompanyController.details(id: Int)

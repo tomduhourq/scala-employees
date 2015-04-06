@@ -26,7 +26,7 @@ object CompanyController extends Controller  {
     Ok(views.html.company.createCompany(None, companyForm))
   }
 
-  def saveCompany = DBAction { implicit rs =>
+  def insert = DBAction { implicit rs =>
     companyForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.company.createCompany(None, formWithErrors)),
       company => { Companies.insert(company) ; Home }
@@ -42,7 +42,7 @@ object CompanyController extends Controller  {
 
   def details(id: Int) = DBAction { implicit rs =>
     Companies.findById(id).map { company =>
-      Ok(views.html.company.createCompany(Some(id), companyForm))
+      Ok(views.html.company.createCompany(Some(id), companyForm.fill(company)))
     }.getOrElse {
       Home
     }

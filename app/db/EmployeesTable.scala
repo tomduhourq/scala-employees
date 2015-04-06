@@ -13,7 +13,16 @@ class EmployeesTable(tag: Tag) extends Table[Employee](tag, "EMPLOYEES") {
 
   def * = (id, name, positionId) <> (Employee.tupled, Employee.unapply)
 
-  def position = foreignKey("POS_FK", positionId, TableQuery[PositionsTable])(_.id)
+  def position =
+    foreignKey(
+      "POS_FK",
+      positionId,
+      TableQuery[PositionsTable]
+    )(
+        _.id,
+        onUpdate=ForeignKeyAction.Restrict,
+        onDelete=ForeignKeyAction.Cascade
+      )
 }
 
 object Employees extends DAO {

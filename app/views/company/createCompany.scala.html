@@ -11,8 +11,8 @@
   }
 
   @helper.form(action = if (id.isDefined) routes.CompanyController.update(id.get)
-                        else routes.CompanyController.createCompany) {
-    @helper.inputText(company("name"), '_label -> "Name")
+                        else routes.CompanyController.insert) {
+    @helper.inputText(field = company("name"), '_label -> "Name")
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Company } else { Add Company }

@@ -34,6 +34,8 @@ object Companies extends DAO {
   def update(id: Int, company: Company)(implicit s: Session) =
     Companies.filter(_.id === id).update(company)
 
-  def delete(id: Int)(implicit s: Session) =
+  def delete(id: Int)(implicit s: Session) = {
+//    Positions.cas
     Companies.filter(_.id === id).delete
+  }
 }
