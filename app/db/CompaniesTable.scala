@@ -22,9 +22,18 @@ object Companies extends DAO {
   def selectAll(implicit s: Session) =
     Companies.list
 
+  def findById(id: Int)(implicit s: Session) =
+    Companies.filter(_.id === id).list.headOption
+
   def findIdByName(name: String)(implicit s: Session) =
     Companies.filter(_.name === name).list.headOption match {
       case Some(Company(id, _)) => id
       case _ => throw new CompanyNotFoundException(s"Company with name: $name was not found")
     }
+
+  def update(id: Int, company: Company)(implicit s: Session) =
+    Companies.filter(_.id === id).update(company)
+
+  def delete(id: Int)(implicit s: Session) =
+    Companies.filter(_.id === id).delete
 }

@@ -28,6 +28,16 @@ object Application extends Controller {
     Ok(views.html.index(Employees.detailsList))
   }
 
+  def createEmployee = DBAction { implicit rs =>
+    Ok(
+      views.html.employee.details(
+        None,
+        detailsForm,
+        Companies.selectAll,
+        Positions.unique)
+    )
+  }
+
   def insert = DBAction { implicit rs =>
     detailsForm.bindFromRequest.fold(
       formWithErrors => {

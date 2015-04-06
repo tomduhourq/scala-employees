@@ -5,6 +5,7 @@ import models.Company
 import play.api.mvc.{Action, Controller}
 import play.api.data._
 import play.api.data.Forms._
+import play.api.db.slick._
 
 object CompanyController extends Controller  {
 
@@ -15,19 +16,40 @@ object CompanyController extends Controller  {
     )(Company.apply)(Company.unapply)
   )
 
-  def createCompany = Action { implicit request =>
-    Ok(views.html.company.createCompany(companyForm))
+  def list = DBAction { implicit rs =>
+    Ok(views.html.company.index(Companies.selectAll))
   }
 
-  def saveCompany = Action { implicit request =>
-//    companyForm.bindFromRequest.fold(
-//      formWithErrors =>
-//        BadRequest(views.html.company.createCompany(formWithErrors))
-//      company => {
-//        Companies.insert(company)
-//        Application.Home.flashing("success" -> "Company %s has been created".format(company.name))
-//      }
-//    )
-    Ok("sarlompa")
+  val Home = Redirect(routes.CompanyController.list)
+
+  def createCompany = Action { implicit request =>
+    Ok(views.html.company.createCompany(None, companyForm))
+  }
+
+  def saveCompany = DBAction { implicit rs =>
+    companyForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.company.createCompany(None, formWithErrors)),
+      company => { Companies.insert(company) ; Home }
+    )
+  }
+
+  def update(id: Int) = DBAction { implicit rs =>
+    companyForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.company.createCompany(Some(id), errors)),
+      company => { Companies.update(id, company) ; Home }
+    )
+  }
+
+  def details(id: Int) = DBAction { implicit rs =>
+    Companies.findById(id).map { company =>
+      Ok(views.html.company.createCompany(Some(id), companyForm))
+    }.getOrElse {
+      Home
+    }
+  }
+
+  def delete(id: Int) = DBAction { implicit rs =>
+    Companies.delete(id)
+    Home
   }
 }

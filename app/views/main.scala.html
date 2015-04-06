@@ -14,14 +14,40 @@
     </head>
     <body>
         <header class="topbar">
-            <h1 class="fill">
-                <a href="@routes.Application.index()">
-                    Employees database
-                </a>
-            </h1>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="@routes.Application.index()">CRUD</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="@routes.Application.index()">Employees <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Companies </a></li>
+                            <li><a href="#">Positions </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </header>
         <section id="main">
             @content
         </section>
+        <div class="footer">
+            <div class="container">
+                <p><a href="https://github.com/tomduhourq/scala-employees" target="_blank"><i class="fa fa-github fa-2x"></i> View on Github</a></p>
+                <p>Designed and developed by <a href="https://github.com/tomduhourq" target="_blank">tomduhourq</a></p>
+                <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+                <p>© 2015 Tomás Duhourq (tomduhourq)</p>
+            </div>
+        </div>
     </body>
 </html>

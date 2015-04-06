@@ -1,0 +1,22 @@
+@(companies: Seq[Company])
+
+@main {
+  @if(companies.nonEmpty) {
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+
+    @for(company <- companies) {
+      <tr>
+        <td><a href="@routes.CompanyController.details(company.id)">@company.name</a></td>
+        <td>
+          <form method="post" action="@routes.CompanyController.delete(company.id)">
+            <button class="btn btn-link" type="submit"><i class="icon-trash"></i> Delete </button>
+          </form>
+      </tr>
+    }
+  </table>
+  }
+}

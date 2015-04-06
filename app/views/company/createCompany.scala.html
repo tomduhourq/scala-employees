@@ -1,17 +1,23 @@
-@(companyForm: Form[Company])
+@(id: Option[Int], company: Form[Company])
 
 @import views.ViewHelpers._
 
 @main {
-    <h1>Add a company</h1>
-    @helper.form(routes.CompanyController.saveCompany) {
-        <fieldset>
-            @helper.inputText(companyForm("name"), '_label -> "Company name")
-        </fieldset>
-    }
-
-    <div class="actions">
-        <input type="submit" value="Create this company" class="btn primary"> or
-        <a href="@routes.Application.index" class="btn">Cancel</a>
+  @if(company.hasErrors) {
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Please fix the validation errors.
     </div>
+  }
+
+  @helper.form(action = if (id.isDefined) routes.CompanyController.update(id.get)
+                        else routes.CompanyController.createCompany) {
+    @helper.inputText(company("name"), '_label -> "Name")
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        @if(id.isDefined) { Save Company } else { Add Company }
+      </button>
+      <a href="@routes.CompanyController.list" class="btn">Cancel</a>
+    </div>
+  }
 }
