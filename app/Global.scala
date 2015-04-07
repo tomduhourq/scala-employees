@@ -6,6 +6,12 @@ import play.api._
 import play.api.db.slick._
 import play.api.Play.current
 
+/**
+ * Global file for initial system settings.
+ *
+ * By overriding onStart(app: Application) we can define the behavior
+ * when the application starts. The same goes to onStop.
+ */
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) = {
@@ -19,7 +25,7 @@ object Global extends GlobalSettings {
 
     DB.withSession { implicit session =>
 
-      // Create
+      // Creation of mocked data
       startingCompanies.foreach(Companies.insert)
       startingPositions.foreach(Positions.insert)
       startingEmployees.foreach(Employees.insert)

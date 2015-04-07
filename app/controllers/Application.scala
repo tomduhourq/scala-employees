@@ -9,7 +9,15 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.db.slick._
 
-
+/**
+ * The controllers provide the definition of the endpoints described in
+ * the conf/routes file.
+ *
+ * We can return Action or DBAction (provided by slick-play plugin)
+ * depending on what we are doing.
+ * DBAction in particular holds in the request an implicit object Session
+ * to pass on to any db query, so there is no need to define one.
+ */
 object Application extends Controller {
 
   implicit val tab = "index"

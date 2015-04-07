@@ -7,12 +7,16 @@ import scala.slick.driver.MySQLDriver.simple._
 
 class EmployeesTable(tag: Tag) extends Table[Employee](tag, "EMPLOYEES") {
 
+  // Definition of columns using Lifted Embedding. column[T] are wrappers of Scala's type T.
   def id = column[Int]("ID", O.AutoInc, O.PrimaryKey)
   def name = column[String]("NAME")
   def positionId = column[Int]("POSITION")
 
+  // Every table needs to define this function as it represents the projection
+  // of the table when coming from the db.
   def * = (id, name, positionId) <> (Employee.tupled, Employee.unapply)
 
+  // Definition of FK, with configurations of what to do onUpdate and onDelete
   def position =
     foreignKey(
       "POS_FK",
@@ -25,6 +29,14 @@ class EmployeesTable(tag: Tag) extends Table[Employee](tag, "EMPLOYEES") {
       )
 }
 
+/**
+ * This is the table's companion object.
+ *
+ * Companion objects are the singleton class of a proper class and
+ * have the responsibility of adding behavior to the concrete class.
+ * When working with Slick, it is a common use to put the functions
+ * referring queries here.
+ */
 object Employees extends DAO {
 
   def insert(employee: Employee)(implicit s: Session): Int =
@@ -45,6 +57,8 @@ object Employees extends DAO {
       case _ => None
     }
 
+  // This for expression represents a query with a JOIN statement for every if we add.
+  // and the yield represents the mapping to do.
   private lazy val selectAllFormedQuery =
     for {
       emp  <- Employees
