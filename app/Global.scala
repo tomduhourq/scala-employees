@@ -34,14 +34,14 @@ object Global extends GlobalSettings {
     }
   }
 
-  def createCompanies =
+  val createCompanies =
     List(
       Company(1, "Globant"),
       Company(2, "Apple"),
       Company(3, "Google")
     )
 
-  def createPositions =
+  val createPositions =
     List(
       Position(1, "Scala Dev", 1),
       Position(2, "Big Data Dev", 1),
@@ -51,7 +51,7 @@ object Global extends GlobalSettings {
       Position(6, "Scala Dev", 2)
     )
 
-  def createEmployees =
+  val createEmployees =
     List(
       Employee(1, "Tomas Duhourq", 1),
       Employee(2, "John Doe", 3),
