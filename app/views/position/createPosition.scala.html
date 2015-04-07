@@ -1,4 +1,4 @@
-@(id: Option[Int], position: Form[PosDetails], companies: Seq[Company])
+@(id: Option[Int], position: Form[PosDetails], companies: Seq[Company])(implicit tab: String)
 
 @import views.ViewHelpers._
 
@@ -15,8 +15,7 @@
     @helper.inputText(field = position("name"), '_label -> "Name")
     @helper.select(field = position("company"),
                    options = tuplify(companies),
-                   '_label -> "Company",
-                   '_default -> extractCompanyName(companies, position))
+                   '_label -> "Company")
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Position } else { Add Position }

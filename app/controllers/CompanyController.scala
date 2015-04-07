@@ -9,6 +9,8 @@ import play.api.db.slick._
 
 object CompanyController extends Controller  {
 
+  implicit val tab = "company"
+
   val companyForm = Form(
     mapping(
       "id" -> ignored(NOT_IMPLEMENTED),

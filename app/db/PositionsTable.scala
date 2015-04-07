@@ -47,7 +47,7 @@ object Positions extends DAO {
         Position(
           id,
           position.name,
-          db.Companies.findIdByName(position.company)
+          position.company.toInt
         )
       )
 

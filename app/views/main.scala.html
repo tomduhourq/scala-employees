@@ -1,4 +1,4 @@
-@(content: Html)
+@(content: Html)(implicit tab: String)
 
 <!DOCTYPE html>
 
@@ -30,9 +30,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="@routes.Application.index()">Employees <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Companies </a></li>
-                            <li><a href="#">Positions </a></li>
+                            <li class=@("active".when(tab == "index"))><a href="@routes.Application.index">Employees <span class="sr-only">(current)</span></a></li>
+                            <li class=@("active".when(tab == "company"))><a href="@routes.CompanyController.list">Companies </a></li>
+                            <li class=@("active".when(tab == "position"))><a href="@routes.PositionController.list">Positions </a></li>
                         </ul>
                     </div>
                 </div>

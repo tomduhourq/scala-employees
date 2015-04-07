@@ -1,6 +1,6 @@
 package views
 
-import models.Company
+import models.{Details, Position, Company}
 import play.api.data.Form
 import views.html.helper.{form, FieldConstructor}
 
@@ -18,9 +18,22 @@ object ViewHelpers {
        case _ => ""
      }
 
+  private def extractSearchPosition(form: Form[Details]) =
+    form.value match {
+      case Some(_) => form.get.position
+      case _ => ""
+    }
+
   def extractCompanyName[T <: {def company: String}](companies: Seq[Company], form: Form[T]) = {
     companies.filter(_.name == extractSearchName(form)).headOption match {
       case Some(c) => c.name
+      case _ => "-- Select an option --"
+    }
+  }
+
+  def extractPositionName(positions: Seq[Position], employee: Form[Details]) = {
+    positions.filter(_.name == extractSearchPosition(employee)).headOption match {
+      case Some(p) => p.name
       case _ => "-- Select an option --"
     }
   }

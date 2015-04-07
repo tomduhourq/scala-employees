@@ -1,10 +1,6 @@
-@(id: Option[Int], employee: Form[Details], companies: Seq[Company], positions: Seq[Position])(implicit flash: Flash)
+@(id: Option[Int], employee: Form[Details], companies: Seq[Company], positions: Seq[Position])(implicit flash: Flash, tab: String)
 
 @import views.ViewHelpers._
-
-@extractPositionName = @{
-  positions.filter(_.name == employee.get.position)(0).name
-}
 
 @main {
   @if(employee.hasErrors) {
@@ -18,12 +14,10 @@
     @helper.inputText(employee("name"), '_label -> "Name")
     @helper.select(field = employee("company"),
                    options = tuplify(companies),
-                   '_label -> "Company",
-                   '_default -> extractCompanyName(companies, employee))
+                   '_label -> "Company")
     @helper.select(field = employee("position"),
                    options = tuplify(positions),
-                   '_label -> "Position",
-                   '_default -> extractPositionName)
+                   '_label -> "Position")
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">
         @if(id.isDefined) { Save Employee } else { Add Employee }

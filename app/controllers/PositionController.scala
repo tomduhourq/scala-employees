@@ -9,9 +9,11 @@ import play.api.db.slick._
 
 object PositionController extends Controller {
 
+  implicit val tab = "position"
+
   val positionForm = Form(
     mapping(
-      "id" -> number,
+      "id" -> ignored(NOT_IMPLEMENTED),
       "name" -> nonEmptyText,
       "company" -> nonEmptyText
     )(PosDetails.apply)(PosDetails.unapply)

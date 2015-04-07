@@ -66,7 +66,7 @@ object Employees extends DAO {
           Employee(
             id,
             details.name,
-            db.Positions.findIdByName(details.position)
+            details.position.toInt
           )
         )
 

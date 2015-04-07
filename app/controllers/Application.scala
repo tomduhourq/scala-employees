@@ -12,10 +12,12 @@ import play.api.db.slick._
 
 object Application extends Controller {
 
+  implicit val tab = "index"
+
   // Define the form of an Employee by his details
   val detailsForm = Form(
     mapping(
-      "id" -> number,
+      "id" -> ignored(NOT_IMPLEMENTED),
       "name" -> nonEmptyText,
       "position" -> nonEmptyText,
       "company" -> nonEmptyText
