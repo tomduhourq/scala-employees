@@ -31,7 +31,13 @@ object Positions extends DAO {
     (Positions returning Positions.map(_.id)) += position
 
   def insertWithDetails(position: PosDetails)(implicit s: Session) =
-    insert(Position(position.id, position.name, db.Companies.findIdByName(position.name)))
+    insert(
+      Position(
+        position.id,
+        position.name,
+        db.Companies.findById(position.company.toInt).orNull.id
+      )
+    )
 
   def selectAll(implicit s: Session) =
     Positions.list

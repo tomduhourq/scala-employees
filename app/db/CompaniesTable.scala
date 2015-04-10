@@ -23,7 +23,10 @@ object Companies extends DAO {
     Companies.list
 
   def findById(id: Int)(implicit s: Session) =
-    Companies.filter(_.id === id).list.headOption
+    Companies.filter(_.id === id).list.headOption match {
+      case Some(c) => Some(c)
+      case _ => None
+    }
 
   def findIdByName(name: String)(implicit s: Session) =
     Companies.filter(_.name === name).list.headOption match {

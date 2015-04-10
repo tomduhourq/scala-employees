@@ -26,8 +26,8 @@ object ViewHelpers {
 
   def extractCompanyName[T <: {def company: String}](companies: Seq[Company], form: Form[T]) = {
     companies.filter(_.name == extractSearchName(form)).headOption match {
-      case Some(c) => c.name
-      case _ => "-- Select an option --"
+      case Some(c) => (s"${c.id}", c.name)
+      case _ => ("0", "-- Select an option --")
     }
   }
 
